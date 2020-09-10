@@ -11,49 +11,8 @@ namespace Calculateinterest
         {
             decimal principal, interest, interestPaid, total;
 
-            do
-            {
-                // Приглашение дпя ввода вклада
-                Console.Write("Bвeдитe сумму вклада: ");
-                string principalinput = Console.ReadLine();
-                try
-                {
-                    principal = Convert.ToDecimal(principalinput);
-
-                    // Убеждаемся, что вклад не отрицателен
-                    if (principal < 0)
-                    {
-                        Console.WriteLine("Bклaд не может быть отрицательным.");
-                    }
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Введенная сумма не может быть представлена как число.");
-                    principal = -1;
-                }
-            } while (principal < 0);
-
-            do
-            {
-                // Приглашение дпя ввода процентной ставки
-                Console.Write("Bвeдитe процентную ставку: ");
-                string interestinput = Console.ReadLine();
-                try
-                {
-                    interest = Convert.ToDecimal(interestinput);
-
-                    // Убеждаемся, что процентная ставка не отрицательна
-                    if (interest < 0)
-                    {
-                        Console.WriteLine("Пpoцeнтнaя ставка не может быть отрицательной.");
-                    }
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Введенная процентная ставка не может быть представлена как число.");
-                    interest = -1;
-                }
-            } while (interest < 0);
+            principal = InputData("вклад");
+            interest = InputData("ставка");
 
             try
             {
@@ -67,12 +26,7 @@ namespace Calculateinterest
                 }
 
                 // Вывод результатов
-                Console.WriteLine();
-                Console.WriteLine($"Bклaд = {principal}");
-                Console.WriteLine($"Пpoцeнтная ставка = {interest}%");
-                Console.WriteLine();
-                Console.WriteLine($"Haчиcлeнныe проценты = {interestPaid}");
-                Console.WriteLine($"Oбщaя сумма = {total}");
+                ViewData(principal, interest, interestPaid, total);
             }
             catch (OverflowException ex)
             {
@@ -82,6 +36,63 @@ namespace Calculateinterest
             // Ожидание реакции пользователя
             Console.WriteLine("Haжмитe <Enter> дпя завершения программы...");
             Console.Read();
+        }
+
+        private static decimal InputData(string text)
+        {
+            decimal interest;
+            string s1 = string.Empty, s2 = string.Empty, s3 = string.Empty;
+
+            switch (text)
+            {
+                case "вклад":
+                    s1 = "процентную ставку";
+                    s2 = "Пpoцeнтнaя ставка";
+                    s3 = "процентная ставка";
+                    break;
+
+                case "ставка":
+                    s1 = "сумму вклада";
+                    s2 = "Bклaд";
+                    s3 = "сумма вклaда";
+                    break;
+
+                default:
+                    break;
+            }
+
+            do
+            {
+                // Приглашение дпя ввода процентной ставки
+                Console.Write($"Bвeдитe {s1}: ");
+                string interestinput = Console.ReadLine();
+                try
+                {
+                    interest = Convert.ToDecimal(interestinput);
+
+                    // Убеждаемся, что процентная ставка не отрицательна
+                    if (interest < 0)
+                    {
+                        Console.WriteLine($"{s2} не может быть отрицательной.");
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine($"Введенная {s3} не может быть представлена как число.");
+                    interest = -1;
+                }
+            } while (interest < 0);
+            return interest;
+        }
+
+        private static void ViewData(decimal principal, decimal interest, decimal interestPaid, decimal total)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"Bклaд = {principal}");
+            Console.WriteLine($"Пpoцeнтная ставка = {interest}%");
+            Console.WriteLine();
+            Console.WriteLine($"Haчиcлeнныe проценты = {interestPaid}");
+            Console.WriteLine($"Oбщaя сумма = {total}");
         }
     }
 }
