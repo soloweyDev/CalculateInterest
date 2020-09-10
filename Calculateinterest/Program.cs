@@ -41,20 +41,20 @@ namespace Calculateinterest
         private static decimal InputData(string text)
         {
             decimal interest;
-            string s1 = string.Empty, s2 = string.Empty, s3 = string.Empty;
+            string info = string.Empty, error = string.Empty, exception = string.Empty;
 
             switch (text)
             {
                 case "вклад":
-                    s1 = "процентную ставку";
-                    s2 = "Пpoцeнтнaя ставка";
-                    s3 = "процентная ставка";
+                    info = "процентную ставку";
+                    error = "Пpoцeнтнaя ставка";
+                    exception = "процентная ставка";
                     break;
 
                 case "ставка":
-                    s1 = "сумму вклада";
-                    s2 = "Bклaд";
-                    s3 = "сумма вклaда";
+                    info = "сумму вклада";
+                    error = "Bклaд";
+                    exception = "сумма вклaда";
                     break;
 
                 default:
@@ -64,7 +64,7 @@ namespace Calculateinterest
             do
             {
                 // Приглашение дпя ввода процентной ставки
-                Console.Write($"Bвeдитe {s1}: ");
+                Console.Write($"Bвeдитe {info}: ");
                 string interestinput = Console.ReadLine();
                 try
                 {
@@ -73,12 +73,12 @@ namespace Calculateinterest
                     // Убеждаемся, что процентная ставка не отрицательна
                     if (interest < 0)
                     {
-                        Console.WriteLine($"{s2} не может быть отрицательной.");
+                        Console.WriteLine($"{error} не может быть отрицательной.");
                     }
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine($"Введенная {s3} не может быть представлена как число.");
+                    Console.WriteLine($"Введенная {exception} не может быть представлена как число.");
                     interest = -1;
                 }
             } while (interest < 0);
